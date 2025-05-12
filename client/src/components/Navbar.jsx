@@ -5,7 +5,7 @@ import { useAppContext } from '../context/Appcontext'
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false)
-    const { user, setUser, setshowUserLogin, navigate, searchQuery, setSearchQuery } = useAppContext();
+    const { user, setUser, setshowUserLogin, navigate, searchQuery, setSearchQuery, getCartCount } = useAppContext();
     const logout = async () => {
         setUser(null);
         navigate('/')
@@ -28,17 +28,17 @@ const Navbar = () => {
                 <NavLink to='/products'>All Product</NavLink>
                 <NavLink to='/'>Contact</NavLink>
 
-                <div onChange={(e)=> setSearchQuery(e.target.value)} className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
+                <div onChange={(e) => setSearchQuery(e.target.value)} className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
                     <input className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" type="text" placeholder="Search products" />
                     <img src={assets.search_icon} alt='search' className='w-4 h-4' />
                 </div>
 
-                <div onClick={()=> navigate("/cart")} className="relative cursor-pointer">
+                <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
                     <img src={assets.nav_cart_icon} alt='cart' className='w-6 opacity-80' />
-                    <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">3</button>
+                    <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">{getCartCount()}</button>
                 </div>
 
-                {!user ? (<button onClick={()=> setshowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
+                {!user ? (<button onClick={() => setshowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
                     Login
                 </button>)
                     :
@@ -47,17 +47,22 @@ const Navbar = () => {
                             <img src={assets.profile_icon} className='w-10' alt="" />
                             <ul className='hidden group-hover:block absolute top-10 right-0 bg-white shadow
                             border border-gray-200 py-2.5 w-30 rounded-md text-sm z-40'>
-                                <li onClick={()=> navigate("my-orders")} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>My Orders</li>
+                                <li onClick={() => navigate("my-orders")} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>My Orders</li>
                                 <li onClick={logout} className='p-1.5 pl-3 hover:bg-primary/10 cursor-pointer'>Logout</li>
                             </ul>
                         </div>
                     )}
             </div>
-
-            <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="sm:hidden">
-                {/* Menu Icon SVG */}
-                <img src={assets.menu_icon} alt='menu' />
-            </button>
+            <div className='flex items-center gap-6 sm:hidden'>
+                <div onClick={() => navigate("/cart")} className="relative cursor-pointer">
+                    <img src={assets.nav_cart_icon} alt='cart' className='w-6 opacity-80' />
+                    <button className="absolute -top-2 -right-3 text-xs text-white bg-primary w-[18px] h-[18px] rounded-full">{getCartCount()}</button>
+                </div>
+                <button onClick={() => open ? setOpen(false) : setOpen(true)} aria-label="Menu" className="">
+                    {/* Menu Icon SVG */}
+                    <img src={assets.menu_icon} alt='menu' />
+                </button>
+            </div>
 
             {/* Mobile Menu */}
             {open && (
