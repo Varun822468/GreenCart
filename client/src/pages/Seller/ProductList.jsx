@@ -2,9 +2,9 @@ import React from 'react'
 import { useAppContext } from '../../context/Appcontext'
 
 const ProductList = () => {
-    const {products,currency} = useAppContext()
-  return (
-    <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
+    const { products, currency } = useAppContext()
+    return (
+        <div className="no-scrollbar flex-1 h-[95vh] overflow-y-scroll flex flex-col justify-between">
             <div className="w-full md:p-10 p-4">
                 <h2 className="pb-4 text-lg font-medium">All Products</h2>
                 <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-500/20">
@@ -42,7 +42,7 @@ const ProductList = () => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default ProductList
