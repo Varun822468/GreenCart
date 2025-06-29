@@ -1,0 +1,12 @@
+import User from "../models/User.js";
+
+//Update Cart CartData : /api/cart/update
+
+
+
+export const updateCart = async (req, res) => {
+  try {
+    const { userId, cartItems } = req.body;
+    await User
+  } catch (error) {}
+};
